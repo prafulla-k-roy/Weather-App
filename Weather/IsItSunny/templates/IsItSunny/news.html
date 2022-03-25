@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.3/cerulean/bootstrap.min.css"
+          integrity="sha512-dQLT/B7byn2LjN/DN4zeBKpwGV6qbidV0XiMRWQOL7TGrV7FkZFldkGG+DGMU+CQnMTcRZlUI7GMWt1j6akNew=="
+          crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="{% static 'IsItSunny/style.css' %}">
+    <title>Whats on News?</title>
+</head>
+
+<body>
+
+    <header>
+		<img class="logo" src="{% static 'images/dj.png' %}" alt="logo">
+		<nav>
+			<ul class="nav__links">
+				<li> <a href="#">Home<a> </li>
+				<li> <a href="{% url 'weather' %}">Weather</a> </li>
+				<li> <a href="{% url 'news' %}">News</a> </li>
+                <li>
+                    <form method="post">
+                        {% csrf_token %}
+                        <label for = "Nation">Choose country:</label>
+                        <select name = "Nation" id = "Nation" onchange="this.form.submit()">
+                            <option value = "ar">Argentina</option>
+                            <option value = "au">Australia</option>
+                            <option value = "in">India</option>
+                            <option value = "jp">Japan</option>
+                            <option value = "ru">Russia</option>
+                            <option value = "gb">UK</option>
+                            <option value = "us">USA</option>
+                        </select>
+                    </form>
+                </li>
+			</ul>
+		</nav>
+		<a class="cta" href="https://newsapi.org"> <button>Get Your News API</button> </a>
+	</header>
+
+
+<!-- Card for header -->
+<div class="jumbotron" style="text-align: center; margin-top:40px">
+  <h2>Latest News using News API</h2>
+  <img src="{% static 'images/news.png' %}" class="image" style="width:150px; margin-bottom:-50px; ">
+</div>
+
+<!-- Main -->
+<div class="container">
+  {% for hl, des, img, url in mylist %}
+
+  <div class="card">
+    <img src="{{ img }}" alt="image">
+  </div>
+  <div class="card">
+    <h4><span class="badge badge-primary">Headline:</span></h4>
+    <h5><a href = '{{ url }}'>{{ hl }}{{ value|linebreaks }}</a></h5>
+    <h4> <span class="badge badge-success">Description:</span></h4>
+    <h5>{{ des }}{{ value|linebreaks }}</h5>
+  </div>
+  {% endfor %}
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $('#Nation').change(function
+</script>
+
+  </body>
+
+</html>
